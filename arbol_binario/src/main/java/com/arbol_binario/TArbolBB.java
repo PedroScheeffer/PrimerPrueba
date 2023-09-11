@@ -24,6 +24,17 @@ public class TArbolBB<T> implements IArbolBB<T> {
         return resultado;
     }
 
+    public boolean insertarBalanceado(TElementoAB<T> unElemento) {
+        if (raiz == null) {
+            raiz = unElemento;
+            return true;
+        }
+        boolean resultado = raiz.insertar(unElemento);
+        raiz.balancear(unElemento);
+        System.out.printf("Cantidad de Iteraciones: " + unElemento.contadorIteraciones + "\n");
+        return resultado;
+    }
+
     @Override
     public TElementoAB<T> buscar(Comparable unaEtiqueta) {
         if (raiz == null) {

@@ -7,6 +7,7 @@ public class TElementoAB<T> implements IElementoAB<T> {
 	private TElementoAB hijoDer;
 	private final T datos;
 	public int contadorIteraciones;
+	public int miAltura = 0;
 
 	/**
 	 * @param unaEtiqueta
@@ -58,6 +59,18 @@ public class TElementoAB<T> implements IElementoAB<T> {
 	@Override
 	public boolean insertar(TElementoAB<T> elemento) {
 		contadorIteraciones++;
+		elemento.miAltura = -1;
+		int alturaIZQ = -1;
+		int alturaDER = -1;
+		if(this.getHijoDer() != null){
+			alturaDER = this.getHijoDer().miAltura;
+		}
+		if(this.getHijoIzq() != null){
+			alturaDER = this.getHijoIzq().miAltura;
+		}
+		if (this.getHijoDer() != null && this.getHijoIzq() != null) {
+			miAltura = Integer.max(alturaDER, alturaIZQ) + 1;
+		}
 		if (elemento.getEtiqueta().compareTo(etiqueta) == 0) {
 			return false;
 		}
@@ -227,5 +240,41 @@ public class TElementoAB<T> implements IElementoAB<T> {
 		k1.setHijoDer(rotacionLL(k1.getHijoDer()));
 		return rotacionRR(k1);
 	}
+
+	public int balancear(TElementoAB<T> nodoABalancear) {
+		if (nodoABalancear == null) {
+			return 0;
+		}
+	
+		int alturaIzq = balancear(nodoABalancear.getHijoIzq());
+		int alturaDer = balancear(nodoABalancear.getHijoDer());
+		if(alturaIzq == alturaDer){
+			return 0;
+		}
+
+		if (nodoABalancear.getHijoIzq() != null && nodoABalancear.getHijoDer() != null) {
+			if (alturaIzq - alturaDer > 1) {
+				if (nodoABalancear.getHijoIzq().getHijoIzq() != null && nodoABalancear.getHijoIzq().getHijoDer() != null &&
+					nodoABalancear.getHijoIzq().getHijoIzq().miAltura > nodoABalancear.getHijoIzq().getHijoDer().miAltura) {
+					rotacionLL(nodoABalancear);
+				} else {
+					rotacionLR(nodoABalancear);
+				}
+			} else {
+				if (nodoABalancear.getHijoDer().getHijoDer() != null && nodoABalancear.getHijoDer().getHijoIzq() != null &&
+					nodoABalancear.getHijoDer().getHijoDer().miAltura > nodoABalancear.getHijoDer().getHijoIzq().miAltura) {
+					rotacionRR(nodoABalancear);
+				} else {
+					rotacionRL(nodoABalancear);
+				}
+			}
+		}
+		// Actualizar la altura del nodo actual antes de regresar
+		// Esto es un ejemplo, puedes tener tu propia lógica para calcular la altura
+		nodoABalancear.miAltura = Math.max(alturaIzq, alturaDer) + 1;
+	
+		return nodoABalancear.miAltura;
+	}
+	
 
 }
