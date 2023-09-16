@@ -22,7 +22,9 @@ public class Lista<T> implements ILista<T> {
     }
     public void insertarOrdenado(Nodo<T> nodo){
         // TODO: insercion ordenada
-        if(nodo == null) 
+        if(nodo == null){
+            //Falta
+        }
     }
 
     @Override
@@ -47,33 +49,56 @@ public class Lista<T> implements ILista<T> {
 
     @Override
     public String imprimir() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        String aux = "";
+        if (!esVacia()) {
+            Nodo<T> temp = primero;
+            while (temp != null) {
+                temp.imprimirEtiqueta();
+                temp = temp.getSiguiente();
+            }
+        }
+        return aux;
     }
 
     @Override
     public String imprimir(String separador) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        String aux = "";
+        if (esVacia()) {
+            return "";
+        } else {
+            Nodo<T> temp = primero;
+            aux = "" + temp.getEtiqueta();
+            while (temp.getSiguiente() != null) {
+                aux = aux + separador + temp.getSiguiente().getEtiqueta();
+                temp = temp.getSiguiente();
+            }
+        }
+        return aux;
     }
 
     @Override
     public int cantElementos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cantElementos'");
+        int contador = 0;
+        if (esVacia()) {
+            System.out.println("Cantidad de elementos 0.");
+            return 0;
+        } else {
+            INodo aux = primero;
+            while (aux != null) {
+                contador++;
+                aux = aux.getSiguiente();
+            }
+        }
+        return contador;
     }
 
     @Override
     public boolean esVacia() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'esVacia'");
+        return primero == null;
     }
 
     @Override
     public void setPrimero(Nodo<T> unNodo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPrimero'");
+        this.primero = unNodo;
     }
-
-    // implementar los metodos indicados en la interfaz
 }
