@@ -20,29 +20,73 @@ public class Lista<T> implements ILista<T> {
             primero = nodo;
         }
     }
-    public void insertarOrdenado(Nodo<T> nodo){
-        // TODO: insercion ordenada
-        if(nodo == null) 
+
+    // insercion ordenada tengo que usar el metodo de insertar, donde tomo el
+    // elemento y lo
+    // pongo en la posicion correcta de la lista
+    // para esto recorro la lista nueva comparando etiqueta
+    // al encontrar la pos, lo inserto atras del mayor
+    public void insertarOrdenado(Nodo<T> nodoaInsertar) {
+        if (nodoaInsertar == null || nodoaInsertar.getSiguiente() != null) {
+            throw new IllegalArgumentException("El nodo ya esta en otra lista");
+        }
+        if (primero == null) {
+            primero = nodoaInsertar;
+            return;
+        }
+        Nodo<T> actual = primero;
+        Nodo<T> anterior = null;
+        while (actual != null) {
+            if (nodoaInsertar.getEtiqueta().compareTo(actual.getEtiqueta()) <= 0) {
+                if (anterior == null) {
+                    nodoaInsertar.setSiguiente(actual);
+                    primero = nodoaInsertar;
+                    return;
+                } else {
+                    nodoaInsertar.setSiguiente(actual);
+                    anterior.setSiguiente(nodoaInsertar);
+                    return;
+                }
+            }
+            anterior = actual;
+            actual = actual.getSiguiente();
+        }
+        anterior.setSiguiente(nodoaInsertar);
     }
 
     @Override
     public Nodo<T> buscar(Comparable clave) {
         Nodo<T> nodoActual = primero;
-        while(nodoActual != null){
-            if(nodoActual.getEtiqueta().equals(clave)){
+        while (nodoActual != null) {
+            if (nodoActual.getEtiqueta().equals(clave)) {
                 return nodoActual;
             }
             nodoActual = nodoActual.getSiguiente();
         }
         return null;
     }
-    public Nodo<T> getPrimero(){
+
+    public Nodo<T> getPrimero() {
         return primero;
     }
+
+    /* Recorro la lista y cuando encuentro el nodo tomo la referencia a el y le doy al siguiente */
     @Override
     public boolean eliminar(Comparable clave) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+        if(getPrimero() == null){
+            return false;
+        }
+        Nodo<T> nodoActual = getPrimero();
+        Nodo<T> nodoAnterior = null;
+        while (nodoActual != null) {
+            if(nodoActual.getEtiqueta().compareTo(clave) == 0){
+                nodoAnterior.setSiguiente(nodoActual.getSiguiente());
+                return true;
+            }
+            nodoAnterior = nodoActual;
+            nodoActual = nodoActual.getSiguiente();
+        }
+        return true;
     }
 
     @Override
