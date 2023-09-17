@@ -5,15 +5,25 @@ public class Producto implements IProducto {
     private Comparable id;
     private int precio;
     private int stock;
-
+    private String descripcion;
+    
     public Producto( Comparable codigo){
         this.id = codigo;
+    }
+    public Producto( Comparable codigo, String nombre){
+        this.id = codigo;
+        this.nombre = nombre;
     }
     @Override
     public Comparable getCodProducto() {
         return id;
     }
-
+    public String getDescripcion(){
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
+    }
     @Override
     public Integer getPrecio() {
         return precio;

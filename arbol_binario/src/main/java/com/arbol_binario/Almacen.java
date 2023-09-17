@@ -1,5 +1,9 @@
 package com.arbol_binario;
 
+import java.io.Console;
+
+import org.omg.IOP.ExceptionDetailMessage;
+
 public class Almacen implements IAlmacen{
 
     private String nombre;
@@ -96,33 +100,45 @@ public class Almacen implements IAlmacen{
     }
 
     @Override
-    public void listarOrdenadoPorNombre() {
+    public String listarOrdenadoPorNombre() {
             // armar la lista denuevo pero ordenada por nombre e imprimir
-            ILista listaOrdenada = new Lista<>();
-            Nodo<IProducto> current = listaProductos.getPrimero();
-            Nodo<IProducto> newCurrent = null;
-            while (current != null) {
-                IProducto producto = current.getDato();
-                while (newCurrent != null) {
-                    if(producto.getNombre().compareTo(newCurrent.getDato().getNombre()) > 0){
-
-                    }
-                    current = current.getSiguiente();
+            Lista<IProducto> listaOrdenada = new Lista<>();
+            Nodo<IProducto> actual = listaProductos.getPrimero();
+            while (actual != null) {
+                IProducto producto = actual.getDato();
+                if(producto.getNombre() == null){
+                    System.out.println(
+                        producto.getCodProducto() +  " no tiene nombre"
+                        );
+                    break;
                 }
+                Nodo<IProducto> nuevoNodo = new Nodo<>(producto.getNombre(), producto);
+                listaOrdenada.insertarOrdenado(nuevoNodo);
+                actual = actual.getSiguiente();
             }
+            return listaOrdenada.imprimir("\n");
+
     }
 
 
     @Override
     public IProducto buscarPorDescripcion(String descripcion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPorDescripcion'");
+        if(listaProductos.getPrimero() == null){
+            return null;
+        }
+        Nodo<IProducto> actual = listaProductos.getPrimero(); 
+        while (actual != null) {
+            if(actual.getDato().getDescripcion().compareTo(descripcion) == 0){
+                return actual.getDato();
+            }
+            actual = actual.getSiguiente();
+        }
+        return null;
     }
 
     @Override
     public int cantidadProductos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cantidadProductos'");
+        return listaProductos.cantElementos();
     }
     
 }

@@ -57,5 +57,6 @@ public interface ILista<T> {
     public boolean esVacia();
     
     public void setPrimero( Nodo<T> unNodo);    
+    
 
 }

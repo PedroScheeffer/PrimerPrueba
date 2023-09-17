@@ -80,7 +80,7 @@ public interface IAlmacen {
      * adem�s su stock. Imprime por consola la lista de todos los productos
      * registrados y su stock actual.
      */
-    public void listarOrdenadoPorNombre();
+    public String listarOrdenadoPorNombre();
 
     /**
      * Busca un producto por su descripci�n.

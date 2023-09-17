@@ -97,7 +97,7 @@ public class Lista<T> implements ILista<T> {
         }
         Nodo <T> actual = getPrimero();
         while (actual != null) {
-            result.append(actual.getDato().toString());
+            result.append(actual.getEtiqueta().toString());
             actual = actual.getSiguiente();
         }
         return result.toString();
@@ -111,7 +111,7 @@ public class Lista<T> implements ILista<T> {
         }
         Nodo <T> actual = getPrimero();
         while (actual != null) {
-            result.append(actual.getDato().toString());
+            result.append(actual.getEtiqueta().toString());
             actual = actual.getSiguiente();
             if(actual != null){
                 result.append(separador);
