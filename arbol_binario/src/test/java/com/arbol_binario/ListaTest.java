@@ -30,8 +30,38 @@ public class ListaTest {
     }
     @Test
     public void testEliminarNodo(){
-        Lista<Integer> lista = new Lista<>();
+        // Arrange
+        Lista<Comparable> lista = new Lista<>();
 
-        Nodo <
+        Nodo <Comparable> nodo1 = new Nodo<Comparable>(1, 1);
+        Nodo <Comparable> nodo2 = new Nodo<Comparable>(2, 2);
+        Nodo <Comparable> nodo3 = new Nodo<Comparable>(3, 3);
+        lista.insertarOrdenado(nodo1);
+        lista.insertarOrdenado(nodo2);
+        lista.insertarOrdenado(nodo3);
+
+        // Act
+        lista.eliminar(2);
+
+        // Assert
+        String actual = lista.imprimir();
+        String expected = "13";
+        assertEquals(expected, actual);
     }
+    @Test
+    public void testImprimirConSeparador(){
+        // Arrange
+        Lista<Comparable> lista = new Lista<>();
+        Nodo <Comparable> nodo1 = new Nodo<Comparable>(1, 1);
+        Nodo <Comparable> nodo2 = new Nodo<Comparable>(2, 2);
+        Nodo <Comparable> nodo3 = new Nodo<Comparable>(3, 3);
+        lista.insertarOrdenado(nodo1);
+        lista.insertarOrdenado(nodo2);
+        lista.insertarOrdenado(nodo3);
+        // Act
+        String actual = lista.imprimir("-");
+        // Assert
+        String expected = "1-2-3";
+        assertEquals(expected, actual);
+    }   
 }

@@ -91,32 +91,57 @@ public class Lista<T> implements ILista<T> {
 
     @Override
     public String imprimir() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        StringBuilder result = new StringBuilder();
+        if(primero == null){
+            return "";
+        }
+        Nodo <T> actual = getPrimero();
+        while (actual != null) {
+            result.append(actual.getDato().toString());
+            actual = actual.getSiguiente();
+        }
+        return result.toString();
     }
 
     @Override
     public String imprimir(String separador) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        StringBuilder result = new StringBuilder();
+        if(primero == null){
+            return "";
+        }
+        Nodo <T> actual = getPrimero();
+        while (actual != null) {
+            result.append(actual.getDato().toString());
+            actual = actual.getSiguiente();
+            if(actual != null){
+                result.append(separador);
+            }
+        }
+        return result.toString();
     }
 
     @Override
     public int cantElementos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cantElementos'");
+        if(primero == null){
+            return 0;
+        }
+        int contador = 0;
+        Nodo<T> actual = getPrimero();
+        while(actual != null){
+            contador++;
+            actual = actual.getSiguiente();
+        }
+        return contador;
     }
 
     @Override
     public boolean esVacia() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'esVacia'");
+        return primero == null;
     }
 
     @Override
     public void setPrimero(Nodo<T> unNodo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPrimero'");
+        primero = unNodo;
     }
 
     // implementar los metodos indicados en la interfaz
